@@ -53,28 +53,29 @@ vector<cpx> mul_fft(vector<cpx> a,vector<cpx> b){
 
 int main(){
 	
-	string a,b; cin >> a >> b;
-	vector<cpx> A,B;
-	int maxlen=a.size()+b.size()-1;
-	
-	for(int i=0;i<a.size();i++){
-		A.push_back(cpx((double)(a[i]-'0'),0));
+	int n; scanf("%d",&n);
+	vector<cpx> A,B,tempB;
+	for(int i=0;i<n;i++){
+		int x; scanf("%d",&x); A.push_back(cpx(x,0));
 	}
-	for(int i=0;i<b.size();i++){
-		B.push_back(cpx((double)(b[i]-'0'),0));
+	for(int i=0;i<n;i++){
+		A.push_back(A[i]);
+	}
+	for(int i=0;i<n;i++){
+		int x; scanf("%d",&x); tempB.push_back(cpx(x,0));
+	}
+	for(int i=0;i<n;i++){
+		B.push_back(tempB[n-1-i]);
 	}
 	
+	int dap=0;
 	A=mul_fft(A,B);
-	vector<int> dap;
-	
-	for(int i=0;i<maxlen;i++) dap.push_back((int)(A[i].real()));
-	for(int i=dap.size()-1;i>0;i--){
-		dap[i-1]+=dap[i]/10; dap[i]%=10;
+	for(int i=B.size()-1;i<B.size()*2-1;i++){
+		dap=max(dap,(int)(A[i].real()));
 	}
-	for(int i=0;i<dap.size();i++){
-		printf("%d",dap[i]);
-	}
+	printf("%d",dap);
 	
 	return 0;
 }
+
 

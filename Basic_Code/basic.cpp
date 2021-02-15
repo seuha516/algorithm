@@ -20,8 +20,8 @@
 using namespace std;
 
 
-const double PI = acos(-1); 
-
+const double PI = acos(-1);
+typedef complex<double> cpx;
 
 int x_4[4]={-1,1,0,0}; int y_4[4]={0,0,-1,1};
 int x_8[8]={-1,-1,-1,0,0,1,1,1}; int y_8[8]={-1,0,1,-1,1,-1,0,1};
@@ -40,6 +40,12 @@ void showvec(vector<pair<T, T> >& v){
 	printf("\n< vector >\n");
 	for(int i=0;i<v.size();i++){
 		cout << "( " << (*(v.begin()+i)).first << ", " << (*(v.begin()+i)).second << " )" << " ";
+	}printf("\n");
+}
+void showvec(vector<cpx>& v){
+	printf("\n< vector >\n");
+	for(int i=0;i<v.size();i++){
+		cout << "( " << (*(v.begin()+i)).real() << ", " << (*(v.begin()+i)).imag() << " )" << " ";
 	}printf("\n");
 }
 template <typename T>

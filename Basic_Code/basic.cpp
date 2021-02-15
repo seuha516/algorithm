@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <complex>
 #include <deque>
 #include <set>
 #include <stack>
@@ -19,7 +20,7 @@
 using namespace std;
 
 
-const double PI = 2.0*acos(0.0); 
+const double PI = acos(-1); 
 
 
 int x_4[4]={-1,1,0,0}; int y_4[4]={0,0,-1,1};
@@ -145,11 +146,11 @@ void sosu_make(int N){
 }
 
 
-typedef struct DisjointSet{
+typedef struct Disjointset{
 	
 	vector<int> parent, rank, num;
 	
-	DisjointSet(int n): parent(n), rank(n,1), num(n,1){
+	Disjointset(int n): parent(n), rank(n,1), num(n,1){
 		 for(int i=0;i<n;i++) parent[i]=i;
 	}
 	
@@ -261,7 +262,7 @@ bool isinside(vec p, vector<vec> v){
 }
 
 
-vector<int> KMP(const string &H,const string &N){
+vector<int> kmp(const string &H,const string &N){
 	int Hsize=H.size(), Nsize=N.size();
 
 	vector<int> pi(Nsize,0); //ÀüÃ³¸®
@@ -375,7 +376,6 @@ vector<int> lcp(const string &s,const vector<int> &sa){
 	}
 	return ret;
 }
-
 
 
 

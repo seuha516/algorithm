@@ -86,7 +86,7 @@ void eea(T a, T b, T &ret1, T &ret2){
 }
 template <typename T>
 T mod_inv(T x, T mod){
-	if(gcd(x,mod)!=1) return -1;
+	if(gcd(x,mod)!=1) return -1; //모듈러 역원이 없다 
 	T ret1, ret2;
 	eea(x,mod,ret1,ret2);
 	if(ret1<0) ret1+=mod;
@@ -127,33 +127,95 @@ long long llpow(long long x,long long y){
 	}
 	return ret;
 }
-void fft(vector<cpx> &f,cpx w){
-	int n=f.size();
-	if(n==1) return;
-	vector<cpx> even(n>>1), odd(n>>1);
-	for(int i=0;i<n;i++){ (i&1?odd:even)[i/2]=f[i]; }
-	fft(even,w*w); fft(odd,w*w);
-	cpx wp(1,0);
-	for(int i=0;i<n/2;i++){
-		f[i]=even[i]+wp*odd[i];
-		f[i+n/2]=even[i]-wp*odd[i];
-		wp*=w;
+long long Pow(long long a, long long k, long long mod){
+	long long ret=1;
+	while(k){
+		if(k&1){
+			ret*=a; ret%=mod;
+		}
+		k>>=1; a*=a; a%=mod;
 	}
+	return ret%mod;
+} 
+void fft(vector<cpx> &a,bool inv) {
+    int n=a.size();
+    for(int i=1,j=0;i<n;i++){
+        int bit=n>>1;
+        while (!((j^=bit)&bit)) bit>>=1;
+        if(i<j) swap(a[i],a[j]);
+    }
+    for(int i=1;i<n;i<<=1){
+        double x = inv? PI/i : -PI/i;
+        cpx w={cos(x),sin(x)};
+        for(int j=0;j<n;j+=i<<1){
+            cpx th={1,0};
+            for(int k=0;k<i;k++){
+                cpx tmp=a[i+j+k]*th;
+                a[i+j+k]=a[j+k]-tmp;
+                a[j+k]+=tmp;
+                th*=w;
+            }
+        }
+    }
+    if(inv){
+        for(int i=0;i<n;i++){
+            a[i]/=n;
+        }
+    }
 }
 vector<cpx> mul_fft(vector<cpx> a,vector<cpx> b){
-	int n=1;
-	while(n<=a.size()||n<=b.size()) n<<=1;
-	n<<=1;
-	a.resize(n); b.resize(n); vector<cpx> c(n);
-	cpx w(cos(2*PI/n),sin(2*PI/n));
-	fft(a,w); fft(b,w);
-	for(int i=0;i<n;i++) c[i]=a[i]*b[i];
-	fft(c,cpx(w.real(),-w.imag()));
-	for(int i=0;i<n;i++){
-		c[i]/=cpx(n,0);
-		c[i]=cpx(round(c[i].real()),round(c[i].imag()));
-	}
-	return c;
+	int n=(int)max(a.size(),b.size());
+    int i=0;
+    while((1<<i)<(n<<1)) i++;
+    n=1<<i;
+    a.resize(n); b.resize(n); vector<cpx> c(n);
+    fft(a,false);
+    fft(b,false);
+    for(int i=0;i<n;i++){
+        c[i]=a[i]*b[i];
+    }
+    fft(c,true);
+    return c;
+}
+void ntt(vector<long long> &a,bool inv,long long mod){
+    long long i,j,k,x,y,z;
+    int n=a.size();
+    j=0;
+    for(i=1;i<n;i++){
+        int bit=n>>1;
+        while(!((j^=bit)&bit)) bit>>=1;
+        if (i<j) swap(a[i],a[j]);
+    }
+    for(i=1;i<n;i<<=1){
+        x=Pow(inv ? Pow(3,mod-2,mod):3, mod/i>>1, mod);
+        for(j=0;j<n;j+=i<<1){
+            y=1;
+            for(k=0;k<i;k++){
+                z=(long long)a[i|j|k]*y%mod;
+                a[i|j|k]=a[j|k]-z;
+                if(a[i|j|k]<0) a[i|j|k]+=mod;
+                a[j|k]+=z;
+                if(a[j|k]>=mod) a[j|k]-=mod;
+                y=(long long)y*x%mod;
+            }
+        }
+    }
+    if(inv){
+    	j=Pow(n,mod-2,mod);
+    	for(i=0;i<n;i++) a[i]=(long long)a[i]*j%mod;
+    }
+}
+vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod){
+	int n=2;
+    while(n<a.size()+b.size()) n<<=1;
+    a.resize(n); b.resize(n); vector<long long> c(n);
+    ntt(a,false,mod);
+    ntt(b,false,mod);
+    for(int i=0;i<n;i++){
+        c[i]=a[i]*b[i]%mod;
+    }
+    ntt(c,true,mod);
+    return c;
 }
 
 
@@ -299,7 +361,7 @@ bool isinside(vec p, vector<vec> v){
 vector<int> kmp(const string &H,const string &N){
 	int Hsize=H.size(), Nsize=N.size();
 
-	vector<int> pi(Nsize,0); //전처리
+	vector<int> pi(Nsize,0);
 	int begin=1, mat=0;
 	while(begin+mat<Nsize){
 		if(N[begin+mat]==N[mat]){
@@ -334,7 +396,7 @@ vector<int> kmp(const string &H,const string &N){
 }
 int str_overlap(const string &H,const string &N){
 	int Hsize=H.size(), Nsize=N.size();
-	vector<int> pi(Nsize,0); //전처리
+	vector<int> pi(Nsize,0); 
 	int begin=1, mat=0;
 	while(begin+mat<Nsize){
 		if(N[begin+mat]==N[mat]){

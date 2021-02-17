@@ -62,18 +62,18 @@ void ntt(vector<long long> &a,bool inv,long long mod,long long w){
         for(j=0;j<n;j+=i<<1){
             y=1;
             for(k=0;k<i;k++){
-                z=(long long)a[i|j|k]*y%mod;
+                z=a[i|j|k]*y%mod;
                 a[i|j|k]=a[j|k]-z;
                 if(a[i|j|k]<0) a[i|j|k]+=mod;
                 a[j|k]+=z;
                 if(a[j|k]>=mod) a[j|k]-=mod;
-                y=(long long)y*x%mod;
+                y=y*x%mod;
             }
         }
     }
     if(inv){
     	j=Pow(n,mod-2,mod);
-    	for(i=0;i<n;i++) a[i]=(long long)a[i]*j%mod;
+    	for(i=0;i<n;i++) a[i]=a[i]*j%mod;
     }
 }
 vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod,long long w){

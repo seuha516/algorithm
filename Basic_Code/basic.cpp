@@ -137,7 +137,7 @@ long long Pow(long long a, long long k, long long mod){
 	}
 	return ret%mod;
 } 
-void fft(vector<cpx> &a,bool inv) {
+void fft(vector<cpx> &a,bool inv){
     int n=a.size();
     for(int i=1,j=0;i<n;i++){
         int bit=n>>1;
@@ -160,6 +160,7 @@ void fft(vector<cpx> &a,bool inv) {
     if(inv){
         for(int i=0;i<n;i++){
             a[i]/=n;
+            a[i]=cpx(round(a[i].real()),round(a[i].imag()));
         }
     }
 }
@@ -177,7 +178,7 @@ vector<cpx> mul_fft(vector<cpx> a,vector<cpx> b){
     fft(c,true);
     return c;
 }
-void ntt(vector<long long> &a,bool inv,long long mod){
+void ntt(vector<long long> &a,bool inv,long long mod,long long w){
     long long i,j,k,x,y,z;
     int n=a.size();
     j=0;
@@ -187,37 +188,36 @@ void ntt(vector<long long> &a,bool inv,long long mod){
         if (i<j) swap(a[i],a[j]);
     }
     for(i=1;i<n;i<<=1){
-        x=Pow(inv ? Pow(3,mod-2,mod):3, mod/i>>1, mod);
+        x=Pow(inv ? Pow(w,mod-2,mod):w, mod/i>>1, mod);
         for(j=0;j<n;j+=i<<1){
             y=1;
             for(k=0;k<i;k++){
-                z=(long long)a[i|j|k]*y%mod;
+                z=a[i|j|k]*y%mod;
                 a[i|j|k]=a[j|k]-z;
                 if(a[i|j|k]<0) a[i|j|k]+=mod;
                 a[j|k]+=z;
                 if(a[j|k]>=mod) a[j|k]-=mod;
-                y=(long long)y*x%mod;
+                y=y*x%mod;
             }
         }
     }
     if(inv){
     	j=Pow(n,mod-2,mod);
-    	for(i=0;i<n;i++) a[i]=(long long)a[i]*j%mod;
+    	for(i=0;i<n;i++) a[i]=a[i]*j%mod;
     }
 }
-vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod){
+vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod,long long w){
 	int n=2;
     while(n<a.size()+b.size()) n<<=1;
     a.resize(n); b.resize(n); vector<long long> c(n);
-    ntt(a,false,mod);
-    ntt(b,false,mod);
+    ntt(a,false,mod,w);
+    ntt(b,false,mod,w);
     for(int i=0;i<n;i++){
         c[i]=a[i]*b[i]%mod;
     }
-    ntt(c,true,mod);
+    ntt(c,true,mod,w);
     return c;
 }
-
 
 vector<int> sosu;
 vector<int> min_soinsoo;

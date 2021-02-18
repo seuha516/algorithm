@@ -367,7 +367,7 @@ typedef struct Disjointset{
 }dj;
 
 
-//벡터 구조체 
+//벡터 구조체
 typedef struct Vector{
 	double x,y;
 	explicit Vector(double x_=0, double y_=0): x(x_), y(y_){}
@@ -451,7 +451,7 @@ bool isinside(vec p, vector<vec> v){
 }
 
 
-//문자열 검색 
+//문자열 검색
 vector<int> kmp(const string &H,const string &N){
 	int Hsize=H.size(), Nsize=N.size();
 

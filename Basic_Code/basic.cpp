@@ -206,7 +206,7 @@ bool miller_rabin(ull n,ull a){
 bool is_prime(ull n){
 	if(n<=1) return false;
 	if(n<=10000000000ULL){
-		for(unsigned long long i=2;i*i<=n;i++) if(n%i==0) return false;
+		for(ull i=2;i*i<=n;i++) if(n%i==0) return false;
 		return true;
 	}
 	for(ull a : a_list) if(!miller_rabin(n,a)) return false;
@@ -576,7 +576,7 @@ int main(){
 	int TC; scanf("%d",&TC);
 	while(TC--){
 		
-		
+				
 		
 	}
 	

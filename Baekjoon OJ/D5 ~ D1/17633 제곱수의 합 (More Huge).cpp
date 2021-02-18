@@ -99,7 +99,10 @@ void soinsoo_divide(ull n){
 int main(){
 	
 	ull x; scanf("%llu",&x);
-	while(x%4ULL==0) x/=4;
+	if(x==1){
+		printf("1"); return 0;
+	}
+	while(x%4ULL==0) x/=4ULL;
 	if(x%8==7) printf("4");
 	else{
 		soinsoo_divide(x);

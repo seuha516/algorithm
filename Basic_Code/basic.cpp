@@ -16,18 +16,23 @@
 #include <cstdlib>
 #include <map>
 #include <unordered_map>
+#define ll long long
+#define ull unsigned long long
 
 using namespace std;
 
 
 const double PI = acos(-1);
-typedef complex<double> cpx;
+typedef complex<double> cpx; //복소수 
+
+vector<ull> a_list={2,325,9375,28178,450775,9780504,1795265022}; //밀러 라빈 
 
 int x_4[4]={-1,1,0,0}; int y_4[4]={0,0,-1,1};
 int x_8[8]={-1,-1,-1,0,0,1,1,1}; int y_8[8]={-1,0,1,-1,1,-1,0,1};
-int kx_8[8]={-2,-2,-1,-1,1,1,2,2}; int ky_8[8]={1,-1,2,-2,2,-2,1,-1};
+int kx_8[8]={-2,-2,-1,-1,1,1,2,2}; int ky_8[8]={1,-1,2,-2,2,-2,1,-1}; //나이트의 이동 
 
 
+// 벡터 및 배열 출력 
 template <typename T>
 void showvec(vector<T>& v){
 	printf("\n< vector >\n");
@@ -66,6 +71,7 @@ void showarr_2(T(*arr)[999],int a,int b){
 }
 
 
+//정수론 관련 
 template <typename T>
 T gcd(T a, T b){  
 	return a%b==0? b : gcd(b,a%b);
@@ -105,8 +111,9 @@ T crt(const vector<T>gap, const vector<T>mod){
 }
 
 
+//거듭제곱 관련 
 template <typename T>
-T jari(T x){ 
+int jari(T x){ 
 	int ret=0;
 	while(x){
 		x/=10; ret++;
@@ -120,15 +127,15 @@ int intpow(int x,int y){
 	}
 	return ret;
 }
-long long llpow(long long x,long long y){  
-	long long ret=1;
+ll llpow(ll x,ll y){  
+	ll ret=1;
 	for(int i=0;i<y;i++){
 		ret*=x;
 	}
 	return ret;
 }
-long long Pow(long long a, long long k, long long mod){
-	long long ret=1;
+ll Pow(ll a,ll k,ll mod){
+	ll ret=1;
 	while(k){
 		if(k&1){
 			ret*=a; ret%=mod;
@@ -136,7 +143,113 @@ long long Pow(long long a, long long k, long long mod){
 		k>>=1; a*=a; a%=mod;
 	}
 	return ret%mod;
+}
+ull addmod(ull x,ull y,ull mod){
+	x%=mod; y%=mod; return (x>=mod-y? x-(mod-y) : x+y);
+}
+ull mulmod(ull x,ull y,ull mod){
+	x%=mod; y%=mod; 
+	ull ret=0ULL;
+	while(y){
+		if(y&1) ret=addmod(ret,x,mod);
+		x=addmod(x,x,mod);
+		y>>=1;
+	}
+	return ret;
+}
+ull powmod(ull x,ull y,ull mod){
+	x%=mod;
+	ull ret=1ULL;
+	while(y){
+		if(y&1) ret=mulmod(ret,x,mod);
+		x=mulmod(x,x,mod);
+		y>>=1;
+	}
+	return ret;
+}
+
+
+//소수 찾기 
+vector<int> sosu;
+vector<int> min_soinsoo;
+int sosu_gaesoo;
+void sosu_make(int N){
+	min_soinsoo.assign(2,-1);
+	for(int i=2;i<=N;i++) min_soinsoo.push_back(i);
+	int sqrtN=(int)(sqrt(N));
+	for(int i=2;i<=sqrtN;i++){
+		if(min_soinsoo[i]==i){
+			for(int j=i*i;j<=N;j+=i){
+				if(min_soinsoo[j]==j){
+					min_soinsoo[j]=i;
+				}
+			}
+		}
+	}
+	for(int i=2;i<=N;i++){
+		if(min_soinsoo[i]==i) sosu.push_back(i);
+	}
+	sosu_gaesoo=sosu.size();
+}
+
+
+//밀러 라빈, 폴라드 로 
+bool miller_rabin(ull n,ull a){
+	ull d=n-1;
+	while(!(d&1)){
+		if(powmod(a,d,n)==n-1) return true;
+		d>>=1;
+	}
+	ull temp=powmod(a,d,n);
+	return temp==n-1 || temp==1;
+}
+bool is_prime(ull n){
+	if(n<=1) return false;
+	if(n<=10000000000ULL){
+		for(unsigned long long i=2;i*i<=n;i++) if(n%i==0) return false;
+		return true;
+	}
+	for(ull a : a_list) if(!miller_rabin(n,a)) return false;
+	return true;
+}
+ull rho_f(ull x,ull c,ull mod){
+	return addmod(mulmod(x,x,mod),c,mod);
+}
+ull rho(ull n,ull x0,ull c){
+	ull x=x0, y=x0, ret=1;
+	while(ret==1){
+		x=rho_f(x,c,n);
+		y=rho_f(y,c,n); y=rho_f(y,c,n);
+		ret=gcd(x>y?x-y:y-x,n);
+	}
+	return ret;
 } 
+ull find_soinsoo(ull n){
+	if(n==1ULL) return 1;
+	if(n<=10000000000ULL){
+		for(unsigned long long i=2;i*i<=n;i++) if(n%i==0) return i;
+		return n;
+	}
+	if(is_prime(n)) return n;
+	ull ret=rho(n,1,1);
+	if(ret==n) ret=rho(n,1,-1);
+	int temp_c=2;
+	while(ret==n) ret=rho(n,1,temp_c++);
+	return ret;
+}
+vector<ull> soinsoos; 
+void soinsoo_divide(ull n){
+	if(n==1) return;
+	if(find_soinsoo(n)==n){
+		soinsoos.push_back(n); return;
+	}
+	soinsoo_divide(find_soinsoo(n));
+	soinsoo_divide(n/find_soinsoo(n));
+	return;
+}
+
+
+//FFT, NTT
 void fft(vector<cpx> &a,bool inv){
     int n=a.size();
     for(int i=1,j=0;i<n;i++){
@@ -178,8 +291,8 @@ vector<cpx> mul_fft(vector<cpx> a,vector<cpx> b){
     fft(c,true);
     return c;
 }
-void ntt(vector<long long> &a,bool inv,long long mod,long long w){
-    long long i,j,k,x,y,z;
+void ntt(vector<ll> &a,bool inv,ll mod,ll w){
+    ll i,j,k,x,y,z;
     int n=a.size();
     j=0;
     for(i=1;i<n;i++){
@@ -206,10 +319,10 @@ void ntt(vector<long long> &a,bool inv,long long mod,long long w){
     	for(i=0;i<n;i++) a[i]=a[i]*j%mod;
     }
 }
-vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod,long long w){
+vector<ll> mul_ntt(vector<ll> a,vector<ll> b,ll mod,ll w){
 	int n=2;
     while(n<a.size()+b.size()) n<<=1;
-    a.resize(n); b.resize(n); vector<long long> c(n);
+    a.resize(n); b.resize(n); vector<ll> c(n);
     ntt(a,false,mod,w);
     ntt(b,false,mod,w);
     for(int i=0;i<n;i++){
@@ -219,29 +332,8 @@ vector<long long> mul_ntt(vector<long long> a,vector<long long> b,long long mod,
     return c;
 }
 
-vector<int> sosu;
-vector<int> min_soinsoo;
-int sosu_gaesoo;
-void sosu_make(int N){
-	min_soinsoo.assign(2,-1);
-	for(int i=2;i<=N;i++) min_soinsoo.push_back(i);
-	int sqrtN=(int)(sqrt(N));
-	for(int i=2;i<=sqrtN;i++){
-		if(min_soinsoo[i]==i){
-			for(int j=i*i;j<=N;j+=i){
-				if(min_soinsoo[j]==j){
-					min_soinsoo[j]=i;
-				}
-			}
-		}
-	}
-	for(int i=2;i<=N;i++){
-		if(min_soinsoo[i]==i) sosu.push_back(i);
-	}
-	sosu_gaesoo=sosu.size();
-}
 
-
+//유니온 파인드 
 typedef struct Disjointset{
 	
 	vector<int> parent, rank, num;
@@ -275,6 +367,7 @@ typedef struct Disjointset{
 }dj;
 
 
+//벡터 구조체 
 typedef struct Vector{
 	double x,y;
 	explicit Vector(double x_=0, double y_=0): x(x_), y(y_){}
@@ -358,6 +451,7 @@ bool isinside(vec p, vector<vec> v){
 }
 
 
+//문자열 검색 
 vector<int> kmp(const string &H,const string &N){
 	int Hsize=H.size(), Nsize=N.size();
 

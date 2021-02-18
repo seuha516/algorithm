@@ -237,11 +237,11 @@ ull find_soinsoo(ull n){
 	while(ret==n) ret=rho(n,1,temp_c++);
 	return ret;
 }
-vector<ull> soinsoos; 
+vector<ull> soinsoo; 
 void soinsoo_divide(ull n){
 	if(n==1) return;
 	if(find_soinsoo(n)==n){
-		soinsoos.push_back(n); return;
+		soinsoo.push_back(n); return;
 	}
 	soinsoo_divide(find_soinsoo(n));
 	soinsoo_divide(n/find_soinsoo(n));

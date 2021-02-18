@@ -99,7 +99,8 @@ void soinsoo_divide(ull n){
 int main(){
 	
 	ull x; scanf("%llu",&x);
-	if(x==1){
+	ull sqx=(ull)sqrt(x);
+	if(sqx*sqx==x || (sqx-1)*(sqx-1)==x || (sqx+1)*(sqx+1)==x){
 		printf("1"); return 0;
 	}
 	while(x%4ULL==0) x/=4ULL;
@@ -115,11 +116,7 @@ int main(){
 			}else num++;	
 		}
 		if((sosu%4==3&&num%2==1)||ok==0) printf("3");
-		else{
-			ull sqx=sqrt(x);
-			if(sqx*sqx==x || (sqx-1)*(sqx-1)==x || (sqx+1)*(sqx+1)==x) printf("1");
-			else printf("2");
-		}
+		else printf("2");
 	}
 	
 	return 0;

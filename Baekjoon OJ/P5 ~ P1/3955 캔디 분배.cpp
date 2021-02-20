@@ -44,9 +44,9 @@ int main(){
 		ll a,b; scanf("%lld %lld",&a,&b);
 		ll dap;
 		if(b==1) dap=a+1;
+		else if(a==1) dap=b;
 		else dap=mod_inv(b,a);
-		printf(">>%lld\n",dap);
-		continue;
+		
 		if(dap<=0||dap>1000000000) printf("IMPOSSIBLE\n");
 		else printf("%lld\n",dap);
 	}	

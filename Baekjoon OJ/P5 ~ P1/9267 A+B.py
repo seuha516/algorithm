@@ -19,8 +19,7 @@ def go(a,b,s):
         return False
     else:
         x*=s//g
-        y*=s
-        y=(s-a*x)//b
+        y*=s//g
         for i in range (-g*x//b+1,g*y//a+1):
             if(eea(x+i*b//g,y-i*a//g)[0]==1):
                 return True

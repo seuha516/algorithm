@@ -1,7 +1,7 @@
 # Algorithm  <br/><br/>
-## Problem Solving :sunflower:  <br/><br/>
+## Problem Solving :sunflower:  <br/>
 
-### *현재 (updated: 2021.02.21)* 💻  <br/><br/>
+### *현재 (updated: 2021.02.21)* 💻  <br/>
 ***Solved.ac* 다이아 5 달성**  
 <br/>[![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)  
 

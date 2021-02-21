@@ -2,6 +2,15 @@
 
 ### Problem Solving :sunflower: <br>
 
+
+#### 현재 (updated: 2021.02.21) 💻
+Solved.ac 다이아 5 달성 <br> <br>
+[![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)
+
+Codeforces Expert 달성 <br> <br>
+<img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="400"> <br>
+<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="400">
+
 #### 기록 :blue_book:
 
 ##### :zap: 2019년 8월 17일: BOJ에서 첫 시작
@@ -31,12 +40,3 @@
 
 ##### :memo: 2021년 1월 15일: 다시 시작, 2월 2일에 1200문제 달성
 <img src="https://user-images.githubusercontent.com/79067549/108619094-f2441880-7465-11eb-8102-f1c8920f7217.png" width="200">
-
-
-### 2021.02.21 💻
-Solved.ac 다이아 5 달성 <br> <br>
-[![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)
-
-Codeforces Expert 달성 <br> <br>
-<img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="400">
-<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="400">

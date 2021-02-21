@@ -1,18 +1,17 @@
-# Algorithm
-
-## Problem Solving :sunflower:    
-
-
-### 현재 (updated: 2021.02.21) 💻  
+# Algorithm  
+<br/>
+## Problem Solving :sunflower:  
+<br/>
+### *현재 (updated: 2021.02.21)* 💻  
 **Solved.ac 다이아 5 달성**  
-[![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)  
+<br/>[![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)  
 
 **Codeforces Expert 달성**  
-<img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="500">
-<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  
+<br/><img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="500">
+<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  <br/>
 
 
-#### 기록 :blue_book:
+### *기록* :blue_book:
 
 ##### :zap: 2019년 8월 17일: BOJ에서 첫 시작
 <img src="https://user-images.githubusercontent.com/79067549/108618447-adb67e00-7461-11eb-929c-1ce01391156f.PNG" width="500">  

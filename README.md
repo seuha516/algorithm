@@ -1,4 +1,4 @@
-# Algorithm  <br/><br/>
+# Algorithm  <br/>
 ## Problem Solving :sunflower:  <br/>
 
 ### *현재 (updated: 2021.02.21)* 💻  <br/>

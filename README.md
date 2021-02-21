@@ -7,8 +7,8 @@
 Solved.ac 다이아 5 달성  
 [![Solved.ac tier](http://mazassumnida.wtf/api/v2/generate_badge?boj=seuha516)](https://solved.ac/seuha516)  
 
-Codeforces Expert 달성
-<img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="500">  
+Codeforces Expert 달성  
+<img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="500">
 <img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  
 
 
@@ -27,7 +27,7 @@ Codeforces Expert 달성
 <img src="https://user-images.githubusercontent.com/79067549/108618793-506ffc00-7464-11eb-90d5-481af12fc6b0.png" width="200">  
 
 ##### :memo: 2020년 6월 13일: 다이아 문제 첫 해결, solved.ac 골드 2
-<img src="https://user-images.githubusercontent.com/79067549/108618831-97f68800-7464-11eb-836d-860e81624119.PNG" width="300">  
+<img src="https://user-images.githubusercontent.com/79067549/108618831-97f68800-7464-11eb-836d-860e81624119.PNG" width="300">
 <img src="https://user-images.githubusercontent.com/79067549/108618832-9927b500-7464-11eb-9bde-7658025a03e9.png" width="300">  
 
 ##### :memo: 2020년 6월 21일: solved.ac 플레티넘 5

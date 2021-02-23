@@ -7,8 +7,10 @@
 
 ***Codeforces* Expert 달성**  
 <br/><img src="https://user-images.githubusercontent.com/79067549/108619367-ad20e600-7467-11eb-8849-0786c16430a1.PNG" width="500">
-<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  <br/><br/>
+<img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  <br/><br/><br/>
 
+### *업데이트* :snowflake:
+**20210223:** 지금까지 푼 ***BOJ*** 1347문제, ***Algospot*** 64문제 모두 업로드 완료 
 
 ### *기록* :blue_book:
 

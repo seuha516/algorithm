@@ -10,7 +10,7 @@
 <img src="https://user-images.githubusercontent.com/79067549/108619365-ab572280-7467-11eb-847b-e519c3d0f375.PNG" width="500">  <br/><br/><br/>
 
 ### *업데이트* :snowflake:
-**20210223:** 지금까지 푼 ***BOJ*** 1347문제, ***Algospot*** 64문제 모두 업로드 완료 
+**2021.02.23:** 지금까지 푼 ***BOJ*** 1347문제, ***Algospot*** 64문제 모두 업로드 완료  <br/><br/>
 
 ### *기록* :blue_book:
 

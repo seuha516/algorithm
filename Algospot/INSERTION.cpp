@@ -143,8 +143,6 @@ void s_kth(int k){
 	s_splay(x);
 }
 
-
-
 int main(){
 	
 	int TC; scanf("%d",&TC);
@@ -164,16 +162,5 @@ int main(){
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 

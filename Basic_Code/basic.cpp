@@ -335,18 +335,14 @@ vector<ll> mul_ntt(vector<ll> a,vector<ll> b,ll mod,ll w){
 
 //유니온 파인드 
 typedef struct Disjointset{
-	
 	vector<int> parent, rank, num;
-	
 	Disjointset(int n): parent(n), rank(n,1), num(n,1){
 		 for(int i=0;i<n;i++) parent[i]=i;
 	}
-	
 	int find(int x){
 		if(x==parent[x]) return x;
 		return parent[x]=find(parent[x]);
 	}
-	
 	void merge(int a,int b){
 		a=find(a); b=find(b);
 		if(a==b) return;
@@ -355,15 +351,12 @@ typedef struct Disjointset{
 		num[b]+=num[a];
 		if(rank[a]==rank[b]) ++rank[b];
 	}
-	
 	bool same(int a,int b){
 		return find(a)==find(b);
-	}
-	
+	}	
 	int size(int a){
 		return num[find(a)];
-	}
-	
+	}	
 }dj;
 
 

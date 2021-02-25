@@ -562,7 +562,7 @@ vector<int> lcp(const string &s,const vector<int> &sa){
 
 
 //스플레이 트리 
-struct splay_node{
+struct+0 splay_node{
 	splay_node *l,*r,*p;
 	int key,cnt,sum;
 }*tree;

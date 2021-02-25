@@ -564,12 +564,19 @@ vector<int> lcp(const string &s,const vector<int> &sa){
 //스플레이 트리 
 struct splay_node{
 	splay_node *l,*r,*p;
-	int key,cnt;
+	int key,cnt,sum;
 }*tree;
 void s_update(splay_node *x){
 	x->cnt=1;
-	if(x->l) x->cnt+=x->l->cnt;
-	if(x->r) x->cnt+=x->r->cnt;
+	x->sum=s->key;
+	if(x->l){
+		x->cnt+=x->l->cnt;
+		x->sum+=x->l->sum;
+	}
+	if(x->r){
+		x->cnt+=x->r->cnt;
+		x->sum+=x->r->sum;
+	}
 }
 void s_rotate(splay_node* x){
 	splay_node* p=x->p;
@@ -682,6 +689,40 @@ void s_kth(int k){
 		x=x->r;
 	}
 	s_splay(x);
+}
+void s_init(int n){
+	splay_node* x;
+	tree=x=new splay_node;
+	x->l=x->r=x->p=NULL;
+	x->cnt=n;
+	x->sum=x->key=0;
+	for(int i=1;i<n;i++){
+		x->r=new splay_node;
+		x->r->p=x;
+		x=x->r;
+		x->l=x->r=NULL;
+		x->cnt=n-i;
+		x->sum=x->key=0;
+	}
+}
+void s_add(int i,int addnum){
+	s_kth(i);
+	tree->sum+=addnum;
+	tree->key+=addnum;
+}
+void s_interval(int l,int r){
+	s_kth(l-1);
+	node* x=tree;
+	tree=x->r;
+	tree->p=NULL;
+	s_kth(r-l+1);
+	x->r=tree;
+	tree->p=x;
+	tree=x;
+}
+int s_sum(int l,int r){
+	s_interval(l,r);
+	return tree->r->l->sum;
 }
 
 

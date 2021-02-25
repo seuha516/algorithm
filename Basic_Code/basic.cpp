@@ -686,7 +686,6 @@ void s_kth(int k){
 
 
 
-
 int main(){
 	
 	int TC; scanf("%d",&TC);

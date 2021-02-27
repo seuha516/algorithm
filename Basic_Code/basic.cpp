@@ -726,6 +726,35 @@ int s_sum(int l,int r){
 }
 
 
+//Æ®¶óÀÌ 
+struct trie_node{
+	trie_node* children[26];
+	int terminal,first;
+	trie_node(){
+		terminal=-1; first=-1;
+		memset(children,0,sizeof(children));
+	}
+	~trie_node(){
+		for(int i=0;i<26;i++) if(children[i]) delete children[i];
+	}
+	void insert(const char* key,int id){
+		if(first==-1) first=id;\
+		if(*key==0) terminal=id;
+		else{
+			int next=*key-'A';
+			if(children[next]==NULL) children[next]=new trie_node();
+			children[next]->insert(key+1,id);
+		}
+	}
+	trie_node* find(const char* key){
+		if(*key==0) return this;
+		int next=*key-'A';
+		if(children[next]==NULL) return NULL;\
+		return children[next]->find(key+1);
+	}
+};
+
+
 
 int main(){
 	

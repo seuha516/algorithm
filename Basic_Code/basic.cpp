@@ -738,7 +738,7 @@ struct trie_node{
 		for(int i=0;i<26;i++) if(children[i]) delete children[i];
 	}
 	void insert(const char* key,int id){
-		if(first==-1) first=id;\
+		if(first==-1) first=id;
 		if(*key==0) terminal=id;
 		else{
 			int next=*key-'A';

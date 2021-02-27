@@ -729,30 +729,69 @@ int s_sum(int l,int r){
 //∆Æ∂Û¿Ã 
 struct trie_node{
 	trie_node* children[26];
-	int terminal,first;
+	int terminal;
+	trie_node* fail;
+	vector<int> output;
 	trie_node(){
-		terminal=-1; first=-1;
+		terminal=-1;
 		memset(children,0,sizeof(children));
 	}
 	~trie_node(){
 		for(int i=0;i<26;i++) if(children[i]) delete children[i];
 	}
 	void insert(const char* key,int id){
-		if(first==-1) first=id;
 		if(*key==0) terminal=id;
 		else{
-			int next=*key-'A';
-			if(children[next]==NULL) children[next]=new trie_node();
+			int next=*key-'a';
+			if(children[next]==NULL){
+				children[next]=new trie_node();
+			}
 			children[next]->insert(key+1,id);
 		}
 	}
 	trie_node* find(const char* key){
 		if(*key==0) return this;
-		int next=*key-'A';
-		if(children[next]==NULL) return NULL;\
+		int next=*key-'a';
+		if(children[next]==NULL) return NULL;
 		return children[next]->find(key+1);
 	}
 };
+void make_failfunc(trie_node* root){
+	queue<trie_node*> q;
+	root->fail=root;
+	q.push(root);
+	while(!q.empty()){
+		trie_node* here=q.front(); q.pop();
+		for(int i=0;i<26;i++){
+			trie_node* child=here->children[i];
+			if(!child) continue;
+			if(here==root) child->fail=root;
+			else{
+				trie_node* temp=here->fail;
+				while(temp!=root&&temp->children[i]==NULL){
+					temp=temp->fail;
+				}
+				if(temp->children[i]) temp=temp->children[i];
+				child->fail=temp;
+			}
+			child->output=child->fail->output;
+			if(child->terminal!=-1) child->output.push_back(child->terminal);
+			q.push(child);
+		}
+	}
+}
+vector<pair<int,int>> ahocorasick(const string &s,trie_node* root){
+	vector<pair<int,int>> ret;
+	trie_node* state=root;
+	for(int i=0;i<s.size();i++){
+		int chr=s[i]-'a'; 
+		while(state!=root&&state->children[chr]==NULL) state=state->fail; 
+		if(state->children[chr]) state=state->children[chr];
+		for(int j=0;j<state->output.size();j++) ret.push_back({i,state->output[j]});
+	}
+	return ret;
+}
+
 
 
 

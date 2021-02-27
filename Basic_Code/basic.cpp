@@ -562,13 +562,13 @@ vector<int> lcp(const string &s,const vector<int> &sa){
 
 
 //스플레이 트리 
-struct+0 splay_node{
+struct splay_node{
 	splay_node *l,*r,*p;
 	int key,cnt,sum;
 }*tree;
 void s_update(splay_node *x){
 	x->cnt=1;
-	x->sum=s->key;
+	x->sum=x->key;
 	if(x->l){
 		x->cnt+=x->l->cnt;
 		x->sum+=x->l->sum;
@@ -712,7 +712,7 @@ void s_add(int i,int addnum){
 }
 void s_interval(int l,int r){
 	s_kth(l-1);
-	node* x=tree;
+	splay_node* x=tree;
 	tree=x->r;
 	tree->p=NULL;
 	s_kth(r-l+1);

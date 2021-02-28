@@ -793,6 +793,29 @@ vector<pair<int,int>> ahocorasick(const string &s,trie_node* root){
 }
 
 
+//단절점 
+vector<vector<int>> adj;
+vector<int> discovered; //-1로 초기화 
+vector<bool> cut_v;
+int dis_cnt;
+int find_cut_v(int now,bool root){
+	discovered[now]=dis_cnt++;
+	int ret=discovered[now];
+	int children=0;
+	for(int i=0;i<adj[now].size();i++){
+		int next=adj[now][i];
+		if(discovered[next]==-1){
+			children++;
+			int subtree=find_cut_v(next,0);
+			if(!root&&subtree>=discovered[now]) cut_v[now]=1;
+			ret=min(ret,subtree);
+		}else{
+			ret=min(ret,discovered[next]);
+		}
+	}
+	if(root) cut_v[now]=(children>=2);
+	return ret;
+}
 
 
 int main(){

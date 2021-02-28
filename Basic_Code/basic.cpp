@@ -793,7 +793,7 @@ vector<pair<int,int>> ahocorasick(const string &s,trie_node* root){
 }
 
 
-//단절점, SCC 
+//단절점, SCC, 2-SAT
 vector<vector<int>> adj;
 vector<int> ssc_id; //-1로 초기화 
 stack<int> ssc_st;
@@ -846,6 +846,30 @@ vector<int> tarjan_ssc(){
 		if(discovered[i]==-1) ssc(i);
 	}
 	return ssc_id;
+}
+bool cmp(const pair<int,int> &a,const pair<int,int> &b){
+	if(a.first==b.first) return a.second<b.second;
+	return a.first>b.first;
+}
+vector<int> solve_2sat(){
+	int n=adj.size()/2;
+	vector<int> result=tarjan_ssc();
+	for(int i=0;i<2*n;i+=2){
+		if(result[i]==result[i+1]) return vector<int>();
+	}
+	vector<int> val(2*n,-1);
+	vector<pair<int,int>> order;
+	for(int i=0;i<2*n;i++){
+		order.push_back({result[i],i});
+	}
+	sort(order.begin(),order.end(),cmp);
+	for(int i=0;i<2*n;i++){
+		int vertex=order[i].second;
+		int var=vertex/2, istrue=(vertex%2==0?1:0);
+		if(val[var]!=-1) continue;
+		val[var]=1-istrue;
+	}
+	return val;
 }
 
 

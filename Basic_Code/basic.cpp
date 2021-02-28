@@ -793,11 +793,13 @@ vector<pair<int,int>> ahocorasick(const string &s,trie_node* root){
 }
 
 
-//단절점 
+//단절점, SCC 
 vector<vector<int>> adj;
+vector<int> ssc_id; //-1로 초기화 
+stack<int> ssc_st;
 vector<int> discovered; //-1로 초기화 
 vector<bool> cut_v;
-int dis_cnt;
+int dis_cnt,ssc_cnt,vertex_cnt;
 int find_cut_v(int now,bool root){
 	discovered[now]=dis_cnt++;
 	int ret=discovered[now];
@@ -815,6 +817,35 @@ int find_cut_v(int now,bool root){
 	}
 	if(root) cut_v[now]=(children>=2);
 	return ret;
+}
+int ssc(int now){
+	int ret=discovered[now]=vertex_cnt++;
+	ssc_st.push(now);
+	for(int i=0;i<adj[now].size();i++){
+		int next=adj[now][i];
+		if(discovered[next]==-1){
+			ret=min(ret,ssc(next));
+		}else if(ssc_id[next]==-1){
+			ret=min(ret,discovered[next]); 
+		}
+	}
+	if(ret==discovered[now]){
+		while(1){
+			int t=ssc_st.top(); ssc_st.pop();
+			ssc_id[t]=ssc_cnt;
+			if(t==now) break;
+		}
+		ssc_cnt++;
+	}
+	return ret;
+}
+vector<int> tarjan_ssc(){
+	ssc_id=discovered=vector<int>(adj.size(),-1);
+	ssc_cnt=vertex_cnt=0;
+	for(int i=0;i<adj.size();i++){
+		if(discovered[i]==-1) ssc(i);
+	}
+	return ssc_id;
 }
 
 

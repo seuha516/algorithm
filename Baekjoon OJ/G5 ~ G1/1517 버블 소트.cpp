@@ -23,12 +23,19 @@ using namespace std;
 
 struct splay_node{
 	splay_node *l,*r,*p;
-	int key,cnt;
+	int key,cnt,sum;
 }*tree;
 void s_update(splay_node *x){
 	x->cnt=1;
-	if(x->l) x->cnt+=x->l->cnt;
-	if(x->r) x->cnt+=x->r->cnt;
+	x->sum=x->key;
+	if(x->l){
+		x->cnt+=x->l->cnt;
+		x->sum+=x->l->sum;
+	}
+	if(x->r){
+		x->cnt+=x->r->cnt;
+		x->sum+=x->r->sum;
+	}
 }
 void s_rotate(splay_node* x){
 	splay_node* p=x->p;
@@ -69,7 +76,6 @@ void s_insert(int key){
 		return;
 	}
 	while(1){
-		if(key==p->key) return;
 		if(key<p->key){
 			if(!p->l){
 				pp=&p->l; break;
@@ -142,23 +148,57 @@ void s_kth(int k){
 	}
 	s_splay(x);
 }
+void s_init(int n){
+	splay_node* x;
+	tree=x=new splay_node;
+	x->l=x->r=x->p=NULL;
+	x->cnt=n;
+	x->sum=x->key=0;
+	for(int i=1;i<n;i++){
+		x->r=new splay_node;
+		x->r->p=x;
+		x=x->r;
+		x->l=x->r=NULL;
+		x->cnt=n-i;
+		x->sum=x->key=0;
+	}
+}
+void s_add(int i,int addnum){
+	s_kth(i);
+	tree->sum+=addnum;
+	tree->key+=addnum;
+}
+void s_interval(int l,int r){
+	s_kth(l-1);
+	splay_node* x=tree;
+	tree=x->r;
+	tree->p=NULL;
+	s_kth(r-l+1);
+	x->r=tree;
+	tree->p=x;
+	tree=x;
+}
+int s_sum(int l,int r){
+	s_interval(l,r);
+	return tree->r->l->sum;
+}
+
+vector<ll> v;
 
 int main(){
 	
-	int TC; scanf("%d",&TC);
-	while(TC--){
-		int n; scanf("%d",&n);
-		vector<int> v,dap; 
-		for(int i=0;i<n;i++){int x; scanf("%d",&x); v.push_back(x);}
-		for(int i=1;i<=n;i++) s_insert(i);
-		for(int i=n-1;i>=0;i--){
-			int point=i-v[i];
-			s_kth(point);
-			dap.push_back(tree->key);
-			s_delete(tree->key);
+	tree=NULL;
+	int n; scanf("%d",&n);
+	ll hap=0;
+	for(int i=0;i<n;i++){
+		int x; scanf("%d",&x); s_insert(x);
+		if(tree->r!=NULL){
+			hap+=(ll)(tree->r->cnt);
 		}
-		for(int i=n-1;i>=0;i--) printf("%d ",dap[i]); printf("\n");
 	}
+	printf("%lld\n",hap);
 	
 	return 0;
 }
+
+

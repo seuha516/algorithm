@@ -561,6 +561,41 @@ vector<int> lcp(const string &s,const vector<int> &sa){
 }
 
 
+//세그먼트 트리 
+vector<ll> seg_tree;
+ll seg_init(const vector<ll> &v,int l,int r,int node){
+	if(l==r) return seg_tree[node]=v[l];
+	int m=(l+r)/2;
+	ll L=seg_init(v,l,m,node*2+1);
+	ll R=seg_init(v,m+1,r,node*2+2); 
+	ll ret=L+R;
+	return seg_tree[node]=ret;
+}
+void seg_make(const vector<ll> &v){
+	int size=v.size(); size*=4;
+	seg_tree.clear(); seg_tree.resize(size);
+	seg_init(v,0,size/4-1,0);
+}
+void seg_update(int node,int st,int end,int idx,ll diff){
+	if(idx<st||idx>end) return;
+	seg_tree[node]=seg_tree[node]+diff;
+	if(st!=end){
+		seg_update(node*2+1,st,(st+end)/2,idx,diff);
+		seg_update(node*2+2,(st+end)/2+1,end,idx,diff);
+	}
+}
+ll seg_find(int node,int node_l,int node_r,int l,int r){
+	if(node_l==l&&node_r==r){
+		return seg_tree[node];
+	}else{
+		int mid=(node_l+node_r)/2;
+		if(r<=mid) return seg_find(node*2+1,node_l,mid,l,r);
+		else if(l>mid) return seg_find(node*2+2,mid+1,node_r,l,r);
+		else return seg_find(node*2+1,node_l,mid,l,mid)+seg_find(node*2+2,mid+1,node_r,mid+1,r);
+	}
+}
+
+
 //스플레이 트리 
 struct splay_node{
 	splay_node *l,*r,*p;

@@ -23,9 +23,9 @@ using namespace std;
 
 vector<vector<int>> adj;
 
-vector<int> ssc_id; //-1로 초기화 
+vector<int> ssc_id; //-1?? ???? 
 stack<int> ssc_st;
-vector<int> discovered; //-1로 초기화 
+vector<int> discovered; //-1?? ???? 
 int dis_cnt,ssc_cnt,vertex_cnt;
 int ssc(int now){
 	int ret=discovered[now]=vertex_cnt++;

@@ -908,6 +908,50 @@ vector<int> solve_2sat(){
 }
 
 
+//최단거리 알고리즘
+vector<int> dijkstra(const vector<pair<int,int>> adj[],int n,int st){
+	vector<int> dist(n,987654321);
+	dist[st]=0;
+	priority_queue<pair<int,int>> pq;
+	pq.push({0,st});
+	while(!pq.empty()){
+		int D=-pq.top().first; int V=pq.top().second; pq.pop();
+		if(dist[V]<D) continue;
+		for(int i=0;i<adj[V].size();i++){
+			int next=adj[V][i].first;
+			int dis=adj[V][i].second+D;
+			if(dist[next]>dis){
+				dist[next]=dis;
+				pq.push({-dis,next});
+			}
+		}
+	}
+	return dist;
+} 
+vector<int> bellman(const vector<pair<int,int>> adj[],int n,int st){
+	vector<int> upper(n,987654321);
+	upper[st]=0;
+	bool updated;
+	for(int i=0;i<n;i++){
+		updated=0;
+		for(int j=0;j<n;j++){
+			if(upper[j]==987654321) continue; //영향 없는 음의 사이클 
+			for(int k=0;k<adj[j].size();k++){
+				int next=adj[j][k].first;
+				int cost=adj[j][k].second;
+				if(upper[next]>upper[j]+cost){
+					upper[next]=upper[j]+cost; updated=1;
+				}
+			}
+		}
+		if(!updated) break;
+	}
+	if(updated) upper.clear();
+	return upper;
+} 
+
+
+
 int main(){
 	
 	int TC; scanf("%d",&TC);

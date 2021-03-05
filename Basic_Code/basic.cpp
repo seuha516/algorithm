@@ -949,8 +949,35 @@ vector<int> bellman(const vector<pair<int,int>> adj[],int n,int st){
 	if(updated) upper.clear();
 	return upper;
 } 
-
-
+vector<vector<int>> floyd(const vector<pair<int,int>> adj[],int n){
+	int arr[500][500];
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(i!=j) arr[i][j]=987654321;
+			else arr[i][j]=0;
+		}	
+	}
+	for(int i=0;i<n;i++){
+		for(int j=0;j<adj[i].size();j++){
+			arr[i][adj[i][j].first]=min(arr[i][adj[i][j].first],adj[i][j].second);
+		}
+	}
+	vector<vector<int>> ret(n);
+	for(int i=0;i<n;i++) ret[i]=vector<int>(n);
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			ret[i][j]=arr[i][j];
+		}
+	}
+	for(int k=0;k<n;k++){
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				ret[i][j]=min(ret[i][j],ret[i][k]+ret[k][j]);
+			}
+		}
+	}
+	return ret;
+} 
 
 int main(){
 	

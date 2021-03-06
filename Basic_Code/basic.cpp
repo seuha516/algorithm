@@ -973,6 +973,40 @@ vector<vector<int>> floyd(const vector<pair<int,int>> adj[],int n){
 	return ret;
 } 
 
+
+//네트워크 플로우
+int capacity[100][100], flow[100][100];
+int network_flow(int source,int sink){
+	memset(flow,0,sizeof(flow));
+	int ret=0;
+	while(1){
+		vector<int> p(100,-1);
+		queue<int> q;
+		p[source]=source;
+		q.push(source);
+		while(!q.empty()&&p[sink]==-1){
+			int now=q.front(); q.pop();
+			for(int i=0;i<100;i++){
+				if(capacity[now][i]-flow[now][i]>0 && p[i]==-1){
+					q.push(i); p[i]=now;
+				}
+			}
+		}
+		if(p[sink]==-1) break;
+		int input=987654321;
+		for(int i=sink;i!=source;i=p[i]){
+			input=min(input,capacity[p[i]][i]-flow[p[i]][i]);
+		}
+		for(int i=sink;i!=source;i=p[i]){
+			flow[p[i]][i]+=input; flow[i][p[i]]-=input;
+		}
+		ret+=input;
+	}
+	return ret;
+} 
+
+
+
 int main(){
 	
 	int TC; scanf("%d",&TC);

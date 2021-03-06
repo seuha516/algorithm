@@ -41,3 +41,8 @@
 
 ##### :memo: 2021년 1월 15일: 다시 시작, 2월 2일에 1200문제 달성
 <img src="https://user-images.githubusercontent.com/79067549/108619094-f2441880-7465-11eb-8102-f1c8920f7217.png" width="200">  <br/>
+
+##### :memo: 2021년 3월 7일: 알고리즘 문제 해결 전략 
+<img src="https://user-images.githubusercontent.com/79067549/110216694-e8a1c280-7ef3-11eb-8e1c-12855a9b61ea.png" width="200">  <br/>
+
+

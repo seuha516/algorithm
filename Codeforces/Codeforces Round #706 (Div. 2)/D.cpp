@@ -63,6 +63,7 @@ int main(){
 	
 	for(int i=0;i<mount.size()-1;i++){
 		if(mount[i]>0&&mount[i+1]<0){
+			//°íÁ¡ 
 			
 			int L=mount[i], R=-mount[i+1];
 			bool win=1;
@@ -74,13 +75,20 @@ int main(){
 				}
 			}
 			
+			
 			if(Daniel_best>=max(L,R)) win=0;
-			if(L%2==0) win=0;
-			if(R%2==0) win=0;
+			
+			int LL=L;
+			int RR=R;
+			if(L%2==1) L--;
+			if(R%2==1) R--;
+			if(L>=RR) win=0;
+			if(R>=LL) win=0;
 			
 			dap+=win;
 		}
 	}
+	
 	
 	printf("%d",dap);
 	

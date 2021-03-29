@@ -21,22 +21,26 @@
 
 using namespace std;
 
+int DP[1005][1005];
 
 int main(){
-	
 	int TC; scanf("%d",&TC);
 	while(TC--){
-		
-		vector<int> v;
-		
-		int n; scanf("%d",&n);
+		memset(DP,0,sizeof(DP));
 		int n,k; scanf("%d %d",&n,&k);
 		
-		for(int i=0;i<n;i++){
-			int x; scanf("%d",&x); v.push_back(x); 
+		for(int i=0;i<1005;i++){
+			DP[0][i]=1;
+			DP[i][1]=1;
 		}
-				
-		
+		for(int i=2;i<=k;i++){
+			int acc=1;
+			for(int j=1;j<=n;j++){
+				acc+=DP[n-j][i-1]; acc%=1000000007;
+				DP[j][i]=acc;
+			}
+		}
+		printf("%d\n",DP[n][k]);		
 	}
 	
 	return 0;

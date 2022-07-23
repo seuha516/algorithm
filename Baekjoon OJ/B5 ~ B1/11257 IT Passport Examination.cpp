@@ -28,9 +28,18 @@ using namespace std;
 
 int main() {
 	
-	int a, b, c; scanf("%d %d %d", &a, &b, &c);
-	printf("%d", c&1 ? a^b : a);
-	
-	
+	int TC;	scanf("%d", &TC);
+	while (TC--) {
+		
+		int n, a, b, c; scanf("%d %d %d %d", &n, &a, &b, &c); 
+		if (a + b + c >= 55 && a >= 10.5 && b >= 7.5 && c >= 12) {
+			cout << n << " " << a + b + c << " PASS\n";
+		} else {
+			cout << n << " " << a + b + c << " FAIL\n";
+		}
+		
+	}
+
 	return 0;
 }
+

@@ -28,9 +28,21 @@ using namespace std;
 
 int main() {
 	
-	int a, b, c; scanf("%d %d %d", &a, &b, &c);
-	printf("%d", c&1 ? a^b : a);
-	
-	
+	int N, new_score, P; scanf("%d %d %d", &N, &new_score, &P);
+	vi v;
+	while (N--) {
+		int data; scanf("%d", &data); v.push_back(data);
+	}
+	if (v.size() == P && v[v.size() - 1] >= new_score) {
+		cout << -1;
+	} else if (find(v.begin(), v.end(), new_score) != v.end()) {
+		cout << find(v.begin(), v.end(), new_score) - v.begin() + 1;
+	} else {
+		v.push_back(new_score);
+		sort(v.begin(), v.end(), greater<>());
+		cout << find(v.begin(), v.end(), new_score) - v.begin() + 1;
+	}
+
 	return 0;
 }
+

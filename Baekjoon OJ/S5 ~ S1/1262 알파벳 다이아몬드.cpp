@@ -28,9 +28,27 @@ using namespace std;
 
 int main() {
 	
-	int a, b, c; scanf("%d %d %d", &a, &b, &c);
-	printf("%d", c&1 ? a^b : a);
-	
+	int N, R1, C1, R2, C2;	scanf("%d %d %d %d %d", &N, &R1, &C1, &R2, &C2);
+	for (int i = R1; i <= R2; i++) {
+		
+		int row = i % (2 * N - 1);
+		row = N - 1 - row;
+		row = row > 0 ? row : -row;	
+		
+		for (int j = C1; j <= C2; j++) {
+			int column = j % (2 * N - 1);
+			column = N - 1 - column;
+			column = column > 0 ? column : -column;
+			if (row + column <= N - 1) {
+				printf("%c", ('a' - 19 + row + column) % 26 + 'a');
+			} else {
+				printf(".");
+			}
+		}
+		
+		printf("\n");
+	}
 	
 	return 0;
 }
+
